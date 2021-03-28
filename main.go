@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/kenshin1025/Go_LayeredArchitecture_Sample/internal/handler"
 )
 
 // わかりやすさのためにこうしてるけどセキュリティ的にはenvとかから取り出すようにしたほうが良いと思います
@@ -33,6 +34,7 @@ func main() {
 	defer db.Close()
 
 	http.HandleFunc("/", test)
+	http.HandleFunc("/user/create", handler.CreateUser(db))
 	http.ListenAndServe(":8080", nil)
 }
 
